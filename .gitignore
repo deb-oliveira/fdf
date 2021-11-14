@@ -1,0 +1,11 @@
+#objs 
+objs/*
+.dependencies/libft/*.o
+.dependencies/get_next_line/*.o
+
+#libs
+.dependencies/libft/*.a
+.dependencies/get_next_line/*.a
+
+#fdf
+fdf
