@@ -6,7 +6,7 @@
 #    By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/26 14:58:34 by dde-oliv          #+#    #+#              #
-#    Updated: 2021/11/14 11:44:59 by dde-oliv         ###   ########.fr        #
+#    Updated: 2021/11/14 12:02:40 by dde-oliv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,11 @@ RM 			=	rm -f
 
 ###################################################################
 
-all:		$(NAME)
+all:		$(OBJS_PATH) $(NAME)
 
+$(OBJS_PATH):
+				mkdir -p $(OBJS_PATH)
+				
 $(NAME):	$(OBJS) $(LIBFT) $(GNL)
 				$(CC) $(FLAGS) $(OBJS) $(LIBRARIES) $(LIBFT) $(GNL) -o fdf
 
