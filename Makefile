@@ -6,7 +6,7 @@
 #    By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/26 14:58:34 by dde-oliv          #+#    #+#              #
-#    Updated: 2021/11/14 12:02:40 by dde-oliv         ###   ########.fr        #
+#    Updated: 2021/11/15 12:53:59 by dde-oliv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,10 +23,25 @@ GNL_PATH	= 	.dependencies/get_next_line
 GNL 		= 	$(GNL_PATH)/libgnl.a
 NAME 		=	./fdf
 RM 			=	rm -f
+MINILIBX	= 	$(shell ls .dependencies/minilibx-linux/)
 
 ###################################################################
 
-all:		$(OBJS_PATH) $(NAME)
+##all:		$(OBJS_PATH) $(NAME)
+
+all: minilibx-install $(OBJS_PATH) $(NAME)
+
+minilibx-install:
+ifeq ($(MINILIBX),)
+	@echo Installing minilibx...
+	git clone https://github.com/42Paris/minilibx-linux .dependencies/minilibx-linux
+	sudo apt-get install libxext-dev libxrandr-dev libx11-dev libbsd-dev libssl-dev
+	make -C .dependencies/minilibx-linux
+	sudo mv -n .dependencies/minilibx-linux/man/man1 /usr/local/man/
+	sudo mv -n .dependencies/minilibx-linux/libmlx.a /usr/lib
+	sudo mv -n .dependencies/minilibx-linux/mlx.h /usr/include/
+	make clean -C .dependencies/minilibx-linux
+endif
 
 $(OBJS_PATH):
 				mkdir -p $(OBJS_PATH)
@@ -53,4 +68,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all clean fclean re $(LIBFT) $(GNL)
+.PHONY:		all clean fclean re $(LIBFT) $(GNL) 
