@@ -6,22 +6,26 @@
 #    By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/26 14:58:34 by dde-oliv          #+#    #+#              #
-#    Updated: 2021/11/15 12:53:59 by dde-oliv         ###   ########.fr        #
+#    Updated: 2022/02/01 16:26:22 by dde-oliv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			=	clang
 FILES_PATH	=	src
-FILES 		= 	$(FILES_PATH)/main.c
+FILES 		= 	$(FILES_PATH)/handleEvents.c 	\
+				$(FILES_PATH)/main.c \
+				$(FILES_PATH)/imgProperties.c \
+				$(FILES_PATH)/mapConfig.c \
+				$(FILES_PATH)/imgDraw.c
 OBJS_PATH	=	objs
-OBJS 		=	$(OBJS_PATH)/$(notdir $(FILES:.c=.o))
+OBJS 		=	$(addprefix $(OBJS_PATH)/,$(notdir $(FILES:.c=.o)))
 FLAGS 		= 	-Wall -Wextra -Werror
 LIBRARIES	= 	-lbsd -lmlx -lXext -lX11 -lm
 LIBFT_PATH	= 	.dependencies/libft
 LIBFT		=	$(LIBFT_PATH)/libft.a
 GNL_PATH	= 	.dependencies/get_next_line
 GNL 		= 	$(GNL_PATH)/libgnl.a
-NAME 		=	./fdf
+NAME 		=	fdf
 RM 			=	rm -f
 MINILIBX	= 	$(shell ls .dependencies/minilibx-linux/)
 
@@ -30,6 +34,7 @@ MINILIBX	= 	$(shell ls .dependencies/minilibx-linux/)
 ##all:		$(OBJS_PATH) $(NAME)
 
 all: minilibx-install $(OBJS_PATH) $(NAME)
+	
 
 minilibx-install:
 ifeq ($(MINILIBX),)
@@ -47,9 +52,9 @@ $(OBJS_PATH):
 				mkdir -p $(OBJS_PATH)
 				
 $(NAME):	$(OBJS) $(LIBFT) $(GNL)
-				$(CC) $(FLAGS) $(OBJS) $(LIBRARIES) $(LIBFT) $(GNL) -o fdf
+				$(CC) $(FLAGS) $(OBJS) $(LIBRARIES) $(LIBFT) $(GNL) -fsanitize=address -o fdf
 
-$(OBJS_PATH)/%.o:		$(FILES_PATH)/%.c
+$(OBJS_PATH)/%.o:	$(FILES_PATH)/%.c
 				$(CC) -c $(FLAGS) $< -o $(addsuffix .o, $(OBJS_PATH)/$(basename $(@F)))
 
 $(LIBFT):
