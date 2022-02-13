@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:37:20 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/12 13:40:36 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/13 10:12:20 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,23 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 
     pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(int *)pixel = color;
+}
+
+void clearImage (t_mlxData *mlxData)
+{
+	int i;
+	int j;
+
+	if (mlxData->win_ptr == NULL)
+		return ;
+	i = 0;
+	while (i < mlxData->winHeight)
+	{
+		j = 0;
+		while (j < mlxData->winWidth)
+			img_pix_put(&(mlxData->img), j++, i, 0x000000);
+		++i;
+	}
 }
 
 void bresenDraw(int x0, int y0, int z0, int z1, int x1, int y1,t_img *img) // void **mlx_ptr, void **win_ptr, 

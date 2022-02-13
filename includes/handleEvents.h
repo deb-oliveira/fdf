@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 21:28:15 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/01/13 22:47:09 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/12 14:46:19 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <X11/keysym.h>
 #include <X11/X.h>
 #include "../includes/structures.h"
-
+#include "../includes/imgDraw.h"
 
 int	handle_no_event();
 

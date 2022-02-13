@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 14:58:17 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/12 13:58:02 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/13 10:23:28 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void setPoint3d(t_3dcoord *point3d, int x, int y, int z)
 
 
 
-void drawMap(t_numlist	*map, t_mlxData	*mlxData)
+void drawMap(t_mlxData	*mlxData)
 {
 	t_numlist	*line;
 	t_numlist	*col;
@@ -131,11 +131,12 @@ void drawMap(t_numlist	*map, t_mlxData	*mlxData)
 	t_point		origin;
 	t_point		final;
 	int			delta;
+
+	line = mlxData->map.point;
+	col = mlxData->map.point;
 	
-	line = map;
-	col = map;
 	idy = 0;
-	delta = 20;
+	delta = mlxData->map.delta;
 	//printf("%d, %d", getCenterOfScren(mlxData->mlx_ptr).x, getCenterOfScren(mlxData->mlx_ptr).y);
 	while (col)
 	{
@@ -172,27 +173,27 @@ int	main(int argc, char **argv)
 	t_mlxData 	mlxData;
 	char		*file;
 	//t_numlist	*map;
-	t_map		map;
 	
+	mlxData.map.delta = 5;
 	if(checkInputError(argc, argv) != NO_ERROR)
 		return (INPUT_ERROR);
 	if(initMlxWindow(&mlxData) != MLX_INITIALIZED)
 		return (MLX_ERROR);
 	
 	file = argv[1];
-	ft_readmap(file, &map);
-	drawMap(map.point, &mlxData);
+	ft_readmap(file, &mlxData.map);
+	drawMap(&mlxData);
 	
 	mlx_put_image_to_window(mlxData.mlx_ptr, mlxData.win_ptr, mlxData.img.mlx_img, 0, 0);		
 	mlx_loop_hook(mlxData.mlx_ptr, &handle_no_event, &mlxData);
-	mlx_key_hook(mlxData.win_ptr, &handle_input, &mlxData);
+	//mlx_key_hook(mlxData.win_ptr, &handle_input, &mlxData);
 	mlx_hook(mlxData.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &mlxData);
 	mlx_hook(mlxData.win_ptr, ClientMessage, None, &closeWindow, &mlxData);
 	mlx_loop(mlxData.mlx_ptr);
 	
 	mlx_destroy_image(mlxData.mlx_ptr, mlxData.img.mlx_img);
 	mlx_destroy_display(mlxData.mlx_ptr);
-	cleanMap(&(map.point));
+	cleanMap(&(mlxData.map.point));
 	free(mlxData.mlx_ptr);
 
 }
