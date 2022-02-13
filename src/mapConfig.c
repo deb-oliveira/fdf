@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:26:53 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/12 13:45:49 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/13 10:29:00 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,10 @@ t_point getCenterOfScreen(void *mlx_ptr)
 	return(centerCoord);
 }
 
-void isoProj(t_3dcoord point3d, t_point *point2d, void *mlx_ptr)
+void isoProj(t_3dcoord point3d, t_point *point2d, t_point center)
 {
-	t_point centerOfScreen;
-	
-	centerOfScreen = getCenterOfScreen(mlx_ptr);
-	point2d->x = centerOfScreen.x + round(sqrt(2.0)/2.0 * (point3d.x - point3d.y));
-	point2d->y = centerOfScreen.y * 0.2 - round(sqrt(2.0/3.0) * point3d.z - sqrt(1.0/6.0) * (point3d.x + point3d.y));
+	point2d->x = center.x + round(sqrt(2.0)/2.0 * (point3d.x - point3d.y));
+	point2d->y = center.y * 0.2 - round(sqrt(2.0/3.0) * point3d.z - sqrt(1.0/6.0) * (point3d.x + point3d.y));
 }	
 
 

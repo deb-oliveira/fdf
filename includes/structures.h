@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:21:54 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/13 10:09:30 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/13 10:27:18 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_map
 	int			width;
 	int 		height;
 	int			delta;
+	t_point		center;
 	t_numlist 	*point;
 }				t_map;
 

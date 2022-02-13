@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 21:27:52 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/13 10:23:21 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/13 10:38:50 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,19 @@ static void drawMap(t_mlxData	*mlxData)
 		idx = 0;
 		line = col;
 		setPoint3d(&point3d, idx, idy, line->value);
-		isoProj(point3d, &origin, mlxData->mlx_ptr);
+		isoProj(point3d, &origin,  mlxData->map.center);
 		while (line)
 		{
 			if (line->down)
 			{
 				setPoint3d(&point3d, idx, idy + delta, line->down->value);
-				isoProj(point3d, &final, mlxData->mlx_ptr);
+				isoProj(point3d, &final, mlxData->map.center);
 				bresenDraw(origin.x, origin.y, line->value, line->down->value, final.x, final.y, &mlxData->img);
 			}
 			if (line->right)
 			{
 				setPoint3d(&point3d, idx + delta, idy, line->right->value);
-				isoProj(point3d,  &final, mlxData->mlx_ptr);
+				isoProj(point3d,  &final,  mlxData->map.center);
 				bresenDraw(origin.x, origin.y, line->value, line->right->value, final.x, final.y, &mlxData->img);
 			}
 			idx += delta;
@@ -97,6 +97,34 @@ int	handle_keypress(int keysym, t_mlxData *mlxData)
 		clearImage(mlxData);
 		if (mlxData->map.delta > 0)
 			mlxData->map.delta -= 1;
+		drawMap(mlxData);
+		mlx_put_image_to_window(mlxData->mlx_ptr, mlxData->win_ptr, mlxData->img.mlx_img, 0, 0);	
+	}
+	else if (keysym == XK_Right )
+	{
+		clearImage(mlxData);
+		mlxData->map.center.x += 5;
+		drawMap(mlxData);
+		mlx_put_image_to_window(mlxData->mlx_ptr, mlxData->win_ptr, mlxData->img.mlx_img, 0, 0);	
+	}
+	else if (keysym == XK_Left )
+	{
+		clearImage(mlxData);
+		mlxData->map.center.x -= 5;
+		drawMap(mlxData);
+		mlx_put_image_to_window(mlxData->mlx_ptr, mlxData->win_ptr, mlxData->img.mlx_img, 0, 0);	
+	}
+	else if (keysym == XK_Up )
+	{
+		clearImage(mlxData);
+		mlxData->map.center.y -= 5;
+		drawMap(mlxData);
+		mlx_put_image_to_window(mlxData->mlx_ptr, mlxData->win_ptr, mlxData->img.mlx_img, 0, 0);	
+	}
+	else if (keysym == XK_Down )
+	{
+		clearImage(mlxData);
+		mlxData->map.center.y += 5;
 		drawMap(mlxData);
 		mlx_put_image_to_window(mlxData->mlx_ptr, mlxData->win_ptr, mlxData->img.mlx_img, 0, 0);	
 	}

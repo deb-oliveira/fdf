@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 14:58:17 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/13 10:23:28 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/13 10:31:03 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,19 +143,19 @@ void drawMap(t_mlxData	*mlxData)
 		idx = 0;
 		line = col;
 		setPoint3d(&point3d, idx, idy, line->value);
-		isoProj(point3d, &origin, mlxData->mlx_ptr);
+		isoProj(point3d, &origin, mlxData->map.center);
 		while (line)
 		{
 			if (line->down)
 			{
 				setPoint3d(&point3d, idx, idy + delta, line->down->value);
-				isoProj(point3d, &final, mlxData->mlx_ptr);
+				isoProj(point3d, &final, mlxData->map.center);
 				bresenDraw(origin.x, origin.y, line->value, line->down->value, final.x, final.y, &mlxData->img);
 			}
 			if (line->right)
 			{
 				setPoint3d(&point3d, idx + delta, idy, line->right->value);
-				isoProj(point3d,  &final, mlxData->mlx_ptr);
+				isoProj(point3d,  &final, mlxData->map.center);
 				bresenDraw(origin.x, origin.y, line->value, line->right->value, final.x, final.y, &mlxData->img);
 			}
 			idx += delta;
@@ -168,6 +168,18 @@ void drawMap(t_mlxData	*mlxData)
 	}
 }
 
+static t_point getCenterOfScreen(void *mlx_ptr)
+{
+	int windowWidth;
+	int windowHeight;
+	t_point centerCoord;
+	
+	getScreenSize(mlx_ptr, &windowWidth, &windowHeight);
+	centerCoord.x = windowWidth/2;
+	centerCoord.y = windowHeight/2;
+	return(centerCoord);
+}
+
 int	main(int argc, char **argv)
 {
 	t_mlxData 	mlxData;
@@ -175,6 +187,7 @@ int	main(int argc, char **argv)
 	//t_numlist	*map;
 	
 	mlxData.map.delta = 5;
+	
 	if(checkInputError(argc, argv) != NO_ERROR)
 		return (INPUT_ERROR);
 	if(initMlxWindow(&mlxData) != MLX_INITIALIZED)
@@ -182,6 +195,7 @@ int	main(int argc, char **argv)
 	
 	file = argv[1];
 	ft_readmap(file, &mlxData.map);
+	mlxData.map.center = getCenterOfScreen(mlxData.mlx_ptr);
 	drawMap(&mlxData);
 	
 	mlx_put_image_to_window(mlxData.mlx_ptr, mlxData.win_ptr, mlxData.img.mlx_img, 0, 0);		

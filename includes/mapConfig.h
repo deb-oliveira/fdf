@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:21:54 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/02 10:09:44 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/13 10:29:06 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	ft_readmap(char *file, t_map *map);
 
 void	cleanMap(t_numlist **map);
 
-void isoProj(t_3dcoord coord, t_point *point, void *mlx_ptr);
+void isoProj(t_3dcoord coord, t_point *point, t_point center);
 
 #endif
