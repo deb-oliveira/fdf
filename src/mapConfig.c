@@ -6,14 +6,14 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:26:53 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/13 10:29:00 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/21 12:56:04 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mapConfig.h"
 #include "../includes/fdf.h"
 
-static void getScreenSize(void *mlx_ptr, int *windowWidth, int *windowHeight)
+static void	get_screen_size(void *mlx_ptr, int *windowWidth, int *windowHeight)
 {
 	mlx_get_screen_size(mlx_ptr, windowWidth, windowHeight);
 	*windowHeight -= 100;
@@ -25,24 +25,26 @@ static void getScreenSize(void *mlx_ptr, int *windowWidth, int *windowHeight)
 	}
 }
 
-t_point getCenterOfScreen(void *mlx_ptr)
+t_point	get_center(void *mlx_ptr)
 {
-	int windowWidth;
-	int windowHeight;
-	t_point centerCoord;
-	
-	getScreenSize(mlx_ptr, &windowWidth, &windowHeight);
-	centerCoord.x = windowWidth/2;
-	centerCoord.y = windowHeight/2;
-	return(centerCoord);
+	int		window_width;
+	int		window_height;
+	t_point	center_coord;
+
+	get_screen_size(mlx_ptr, &window_width, &window_height);
+	center_coord.x = window_width / 2;
+	center_coord.y = window_height / 2;
+	return (center_coord);
 }
 
-void isoProj(t_3dcoord point3d, t_point *point2d, t_point center)
+void	iso_proj(t_3dcoord point3d, t_point *point2d, t_point center)
 {
-	point2d->x = center.x + round(sqrt(2.0)/2.0 * (point3d.x - point3d.y));
-	point2d->y = center.y * 0.2 - round(sqrt(2.0/3.0) * point3d.z - sqrt(1.0/6.0) * (point3d.x + point3d.y));
+	point2d->x = center.x + round(sqrt(2.0) / 2.0
+			* (point3d.x - point3d.y));
+	point2d->y = center.y * 0.2 - round(sqrt(2.0 / 3.0)
+			* point3d.z - sqrt(1.0 / 6.0)
+			* (point3d.x + point3d.y));
 }	
-
 
 static void	ft_doublefree(char **tofree)
 {
@@ -51,7 +53,7 @@ static void	ft_doublefree(char **tofree)
 	if (!tofree)
 		return ;
 	idx = 0;
-	while(tofree[idx])
+	while (tofree[idx])
 	{
 		free(tofree[idx]);
 		idx++;
@@ -97,7 +99,7 @@ void	ft_setmap(char **premap, t_map *map)
 		ptr_actual = ptr_actual->right;
 		idx++;
 	}
-	if ( idx > map->width)
+	if (idx > map->width)
 		map->width = idx;
 }
 
@@ -107,18 +109,19 @@ void	ft_readmap(char *file, t_map *map)
 	char		*line;
 	char		**premap;
 	int			fd;
+	int			i;
 
 	fd = open(file, O_RDONLY);
 	gnl = 1;
 	map->point = NULL;
 	map->height = 0;
 	map->width = 0;
-	int i = 1;
+	i = 1;
 	while (gnl > 0)
 	{
 		gnl = get_next_line(fd, &line);
 		premap = ft_split(line, ' ');
-       	if(premap && premap[0] && ft_strcmp(premap[0],"")!=0)
+		if (premap && premap[0] && ft_strcmp(premap[0], "") != 0)
 		{
 			map->height += 1;
 			ft_setmap(premap, map);
@@ -130,7 +133,7 @@ void	ft_readmap(char *file, t_map *map)
 	close(fd);
 }
 
-void	cleanMap(t_numlist **map)
+void	clear_map(t_numlist **map)
 {
 	t_numlist	*ptr_right;
 	t_numlist	*ptr_down;
@@ -152,4 +155,3 @@ void	cleanMap(t_numlist **map)
 		ptr_actual = ptr_down;
 	}
 }
-

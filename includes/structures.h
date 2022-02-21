@@ -6,18 +6,18 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:21:54 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/13 10:27:18 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/21 11:13:18 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_STRUCTURES_H
-# define FT_STRUCTURES_H
+#ifndef STRUCTURES_H
+# define STRUCTURES_H
 
 typedef struct s_point
 {
 	int	x;
 	int	y;
-	int z;
+	int	z;
 	int	color;
 }				t_point;
 
@@ -25,7 +25,7 @@ typedef struct s_3dcoord
 {
 	int	x;
 	int	y;
-    int	z;
+	int	z;
 }				t_3dcoord;
 
 /*	int					value
@@ -44,11 +44,11 @@ typedef struct s_numlist
 typedef struct s_map
 {
 	int			width;
-	int 		height;
+	int			height;
 	int			delta;
 	t_point		center;
-	t_numlist 	*point;
-}				t_map;
+	t_numlist	*point;
+}	t_map;
 
 /*	int		line
 	int		col
@@ -58,8 +58,7 @@ typedef struct s_mtx
 	int		line;
 	int		col;
 	int		**mtx;
-}				t_mtx;
-
+}	t_mtx;
 
 typedef struct s_img
 {
@@ -68,30 +67,29 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
-}			t_img;
-
+}	t_img;
 
 typedef struct s_fdfData
 {
-	void *mlx_ptr;
-	void *win_ptr;
-	int winHeight;
-	int winWidth;
-	t_img *img;
-	t_map *map;
-} t_fdfData;
+	void	*mlx_ptr;
+	void	*win_ptr;
+	int		win_height;
+	int		win_width;
+	t_img	*img;
+	t_map	*map;
+}	t_fdfData;
 
 /*	void *mlx_ptr
 	void *win_ptr
 	t_img img*/
 typedef struct s_mlxData
 {
-	void *mlx_ptr;
-	void *win_ptr;
-	int winHeight;
-	int winWidth;
-	t_img img;
-	t_map map;
-} t_mlxData;
+	void	*mlx_ptr;
+	void	*win_ptr;
+	int		win_height;
+	int		win_width;
+	t_img	img;
+	t_map	map;
+}	t_mlxData;
 
 #endif
