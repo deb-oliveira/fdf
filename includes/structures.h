@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:21:54 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/21 11:13:18 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:48:41 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-typedef struct s_fdfData
+typedef struct s_fdf
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
@@ -77,19 +77,7 @@ typedef struct s_fdfData
 	int		win_width;
 	t_img	*img;
 	t_map	*map;
-}	t_fdfData;
+}	t_fdf;
 
-/*	void *mlx_ptr
-	void *win_ptr
-	t_img img*/
-typedef struct s_mlxData
-{
-	void	*mlx_ptr;
-	void	*win_ptr;
-	int		win_height;
-	int		win_width;
-	t_img	img;
-	t_map	map;
-}	t_mlxData;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 14:58:17 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 10:31:06 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:43:04 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,30 +91,30 @@ static void	get_screen_size(void *mlx_ptr
 	}
 }
 
-int	init_mlx_window(t_mlxData *mlxData)
+int	init_mlx_window(t_fdf *fdf)
 {
 	int	window_width;
 	int	window_height;
 
-	mlxData->mlx_ptr = mlx_init();
-	if (!mlxData->mlx_ptr)
+	fdf->mlx_ptr = mlx_init();
+	if (!fdf->mlx_ptr)
 		return (MLX_ERROR);
-	get_screen_size(mlxData->mlx_ptr, &window_width, &window_height);
-	mlxData->win_ptr = mlx_new_window(mlxData->mlx_ptr,
+	get_screen_size(fdf->mlx_ptr, &window_width, &window_height);
+	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr,
 			WINDOW_WIDTH, WINDOW_HEIGHT, "FDF");
-	if (!mlxData->win_ptr)
+	if (!fdf->win_ptr)
 	{
-		mlx_destroy_display(mlxData->mlx_ptr);
-		free(mlxData->win_ptr);
+		mlx_destroy_display(fdf->mlx_ptr);
+		free(fdf->win_ptr);
 		return (MLX_ERROR);
 	}
-	mlxData->img.mlx_img = mlx_new_image(mlxData->mlx_ptr,
+	fdf->img->mlx_img = mlx_new_image(fdf->mlx_ptr,
 			WINDOW_WIDTH, WINDOW_HEIGHT);
-	mlxData->img.addr = mlx_get_data_addr(mlxData->img.mlx_img,
-			&mlxData->img.bpp,
-			&mlxData->img.line_len, &mlxData->img.endian);
-	mlxData->win_height = window_height;
-	mlxData->win_width = window_width;
+	fdf->img->addr = mlx_get_data_addr(fdf->img->mlx_img,
+			&fdf->img->bpp,
+			&fdf->img->line_len, &fdf->img->endian);
+	fdf->win_height = window_height;
+	fdf->win_width = window_width;
 	return (MLX_INITIALIZED);
 }
 
@@ -125,7 +125,7 @@ void	set_point3d(t_3dcoord *point3d, int x, int y, int z)
 	point3d->z = z;
 }
 
-void	draw_map(t_mlxData	*mlxData)
+void	draw_map(t_fdf	*fdf)
 {
 	t_numlist	*line;
 	t_numlist	*col;
@@ -136,31 +136,31 @@ void	draw_map(t_mlxData	*mlxData)
 	t_point		final;
 	int			delta;
 
-	line = mlxData->map.point;
-	col = mlxData->map.point;
+	line = fdf->map->point;
+	col = fdf->map->point;
 	idy = 0;
-	delta = mlxData->map.delta;
+	delta = fdf->map->delta;
 	while (col)
 	{
 		idx = 0;
 		line = col;
 		set_point3d(&point3d, idx, idy, line->value);
-		iso_proj(point3d, &origin, mlxData->map.center);
+		iso_proj(point3d, &origin, fdf->map->center);
 		while (line)
 		{
 			if (line->down)
 			{
 				set_point3d(&point3d, idx, idy + delta, line->down->value);
-				iso_proj(point3d, &final, mlxData->map.center);
+				iso_proj(point3d, &final, fdf->map->center);
 				bresen_draw(origin.x, origin.y, line->value, \
-					line->down->value, final.x, final.y, &mlxData->img);
+					line->down->value, final.x, final.y, fdf->img);
 			}
 			if (line->right)
 			{
 				set_point3d(&point3d, idx + delta, idy, line->right->value);
-				iso_proj(point3d, &final, mlxData->map.center);
+				iso_proj(point3d, &final, fdf->map->center);
 				bresen_draw(origin.x, origin.y, line->value, \
-					line->right->value, final.x, final.y, &mlxData->img);
+					line->right->value, final.x, final.y, fdf->img);
 			}
 			idx += delta;
 			origin.x = final.x;
@@ -184,24 +184,24 @@ static t_point	get_center(void *mlx_ptr)
 	return (center);
 }
 
-int	mouse_event(int button, int x, int y, t_mlxData *fdf)
+int	mouse_event(int button, int x, int y, t_fdf *fdf)
 {
 	if (button == 5)
 	{
 		clear_image(fdf);
-		fdf->map.delta += 1;
+		fdf->map->delta += 1;
 		draw_map(fdf);
 		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
-			fdf->img.mlx_img, 0, 0);
+			fdf->img->mlx_img, 0, 0);
 	}
 	else if (button == 4)
 	{
 		clear_image(fdf);
-		if (fdf->map.delta > 0)
-			fdf->map.delta -= 1;
+		if (fdf->map->delta > 0)
+			fdf->map->delta -= 1;
 		draw_map(fdf);
 		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
-			fdf->img.mlx_img, 0, 0);
+			fdf->img->mlx_img, 0, 0);
 	}
 	printf("%d\n", button);
 	printf("%d, %d\n", x, y);
@@ -215,30 +215,33 @@ int	expose_handle(void)
 
 int	main(int argc, char **argv)
 {
-	t_mlxData	fdf;
+	t_fdf		*fdf;
 	char		*file;
 
-	fdf.map.delta = 5;
+	fdf = malloc(sizeof(t_fdf));
+	fdf->map = malloc(sizeof(t_map));
+	fdf->img = malloc(sizeof(t_img));
+	fdf->map->delta = 20;
 	if (check_input_error(argc, argv) != NO_ERROR)
 		return (INPUT_ERROR);
-	if (init_mlx_window(&fdf) != MLX_INITIALIZED)
+	if (init_mlx_window(fdf) != MLX_INITIALIZED)
 		return (MLX_ERROR);
 	file = argv[1];
-	ft_readmap(file, &fdf.map);
-	fdf.map.center = get_center(fdf.mlx_ptr);
-	draw_map(&fdf);
-	mlx_put_image_to_window(fdf.mlx_ptr, fdf.win_ptr, \
-		fdf.img.mlx_img, 0, 0);
-	mlx_loop_hook(fdf.mlx_ptr, &handle_no_event, &fdf);
-	mlx_expose_hook(fdf.mlx_ptr, &expose_handle, &fdf);
-	mlx_key_hook(fdf.win_ptr, &handle_input, &fdf);
-	mlx_hook(fdf.win_ptr, KeyPress, KeyPressMask, \
-		&handle_keypress, &fdf);
-	mlx_hook(fdf.win_ptr, ClientMessage, None, &close_window, &fdf);
-	mlx_mouse_hook(fdf.win_ptr, &mouse_event, &fdf);
-	mlx_loop(fdf.mlx_ptr);
-	mlx_destroy_image(fdf.mlx_ptr, fdf.img.mlx_img);
-	mlx_destroy_display(fdf.mlx_ptr);
-	clear_map(&(fdf.map.point));
-	free(fdf.mlx_ptr);
+	ft_readmap(file, fdf->map);
+	fdf->map->center = get_center(fdf->mlx_ptr);
+	draw_map(fdf);
+	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
+		fdf->img->mlx_img, 0, 0);
+	mlx_loop_hook(fdf->mlx_ptr, &handle_no_event, fdf);
+	mlx_expose_hook(fdf->mlx_ptr, &expose_handle, fdf);
+	mlx_key_hook(fdf->win_ptr, &handle_input, fdf);
+	mlx_hook(fdf->win_ptr, KeyPress, KeyPressMask, \
+		&handle_keypress, fdf);
+	mlx_hook(fdf->win_ptr, ClientMessage, None, &close_window, fdf);
+	mlx_mouse_hook(fdf->win_ptr, &mouse_event, fdf);
+	mlx_loop(fdf->mlx_ptr);
+	mlx_destroy_image(fdf->mlx_ptr, fdf->img->mlx_img);
+	mlx_destroy_display(fdf->mlx_ptr);
+	clear_map(&(fdf->map->point));
+	free(fdf->mlx_ptr);
 }

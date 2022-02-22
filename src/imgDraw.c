@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:37:20 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/21 12:53:13 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:43:34 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
-void	clear_image(t_mlxData *mlxData)
+void	clear_image(t_fdf *fdf)
 {
 	int	i;
 	int	j;
 
-	if (mlxData->win_ptr == NULL)
+	if (fdf->win_ptr == NULL)
 		return ;
 	i = 0;
-	while (i < mlxData->win_height)
+	while (i < fdf->win_height)
 	{
 		j = 0;
-		while (j < mlxData->win_width)
-			img_pix_put(&(mlxData->img), j++, i, 0x000000);
+		while (j < fdf->win_width)
+			img_pix_put(fdf->img, j++, i, 0x000000);
 		++i;
 	}
 }
