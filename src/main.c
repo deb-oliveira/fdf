@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 14:58:17 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/21 12:55:26 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:31:06 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,11 +184,27 @@ static t_point	get_center(void *mlx_ptr)
 	return (center);
 }
 
-int	mouse_event(int button, int x, int y, void *param)
+int	mouse_event(int button, int x, int y, t_mlxData *fdf)
 {
+	if (button == 5)
+	{
+		clear_image(fdf);
+		fdf->map.delta += 1;
+		draw_map(fdf);
+		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
+			fdf->img.mlx_img, 0, 0);
+	}
+	else if (button == 4)
+	{
+		clear_image(fdf);
+		if (fdf->map.delta > 0)
+			fdf->map.delta -= 1;
+		draw_map(fdf);
+		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
+			fdf->img.mlx_img, 0, 0);
+	}
 	printf("%d\n", button);
 	printf("%d, %d\n", x, y);
-	printf("%p\n", param);
 	return (1);
 }
 
