@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 14:58:28 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 10:44:26 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:50:49 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include "../includes/structures.h"
 # include "../includes/mapConfig.h"
 # include "../includes/imgDraw.h"
+# include "../includes/bresen_draw.h"
 
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846

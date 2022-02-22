@@ -6,23 +6,25 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:37:20 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 10:43:34 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 11:13:29 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/imgDraw.h"
-
+/*make
 static int	ft_abs(int x)
 {
 	if (x < 0)
 		return (-x);
 	return (x);
-}
+}*/
 
 void	img_pix_put(t_img *img, int x, int y, int color)
 {
 	char	*pixel;
 
+	if (!(x > 0 && y > 0 && x < WINDOW_WIDTH && y < WINDOW_HEIGHT))
+		return ;
 	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(int *)pixel = color;
 }
@@ -43,7 +45,7 @@ void	clear_image(t_fdf *fdf)
 		++i;
 	}
 }
-
+/*
 void	bresen_draw(int x0, int y0, int z0, int z1, int x1, int y1, t_img *img)
 {
 	float	dx;
@@ -104,4 +106,4 @@ void	bresen_draw(int x0, int y0, int z0, int z1, int x1, int y1, t_img *img)
 	}
 	if (x1 > 0 && y1 > 0 && x1 < WINDOW_WIDTH && y1 < WINDOW_HEIGHT)
 		img_pix_put(img, x1, y1, 0xFFFFFF);
-}
+}*/

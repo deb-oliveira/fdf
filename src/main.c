@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 14:58:17 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 10:43:04 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:56:59 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,15 +152,17 @@ void	draw_map(t_fdf	*fdf)
 			{
 				set_point3d(&point3d, idx, idy + delta, line->down->value);
 				iso_proj(point3d, &final, fdf->map->center);
-				bresen_draw(origin.x, origin.y, line->value, \
-					line->down->value, final.x, final.y, fdf->img);
+				origin.z =  line->value;
+				final.z = line->down->value;
+				bresen_draw(origin, final, fdf->img);
 			}
 			if (line->right)
 			{
 				set_point3d(&point3d, idx + delta, idy, line->right->value);
 				iso_proj(point3d, &final, fdf->map->center);
-				bresen_draw(origin.x, origin.y, line->value, \
-					line->right->value, final.x, final.y, fdf->img);
+				origin.z =  line->value;
+				final.z = line->right->value;
+				bresen_draw(origin, final, fdf->img);
 			}
 			idx += delta;
 			origin.x = final.x;
