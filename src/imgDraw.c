@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:37:20 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 17:02:32 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 17:04:46 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	clear_image(t_fdf *fdf)
 	}
 }
 
-int	draw_menu(t_fdf	*fdf)
+void	draw_menu(t_fdf	*fdf)
 {
 	int		y;
 	void	*mlx;
@@ -58,5 +58,4 @@ right side to close the windows.");
 		"Press the arrow keys to move the map.");
 	mlx_string_put(mlx, win, 50, y += 20, 0xffffff,
 		"Use the mouse to Zoom In or Zoom Out.");
-	return (0);
 }
