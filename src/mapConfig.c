@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:26:53 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/21 12:56:04 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 11:49:47 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,20 @@ t_point	get_center(void *mlx_ptr)
 	return (center_coord);
 }
 
-void	iso_proj(t_3dcoord point3d, t_point *point2d, t_point center)
+void	iso_proj(t_point *point, t_point center)
 {
-	point2d->x = center.x + round(sqrt(2.0) / 2.0
-			* (point3d.x - point3d.y));
-	point2d->y = center.y * 0.2 - round(sqrt(2.0 / 3.0)
-			* point3d.z - sqrt(1.0 / 6.0)
-			* (point3d.x + point3d.y));
+	int x;
+	int y;
+	int z;
+
+	x = point->x;
+	y = point->y;
+	z = point->z;
+	point->x = center.x + round(sqrt(2.0) / 2.0
+			* (x - y));
+	point->y = center.y * 0.2 - round(sqrt(2.0 / 3.0)
+			* z - sqrt(1.0 / 6.0)
+			* (x + y));
 }	
 
 static void	ft_doublefree(char **tofree)

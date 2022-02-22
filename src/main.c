@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 14:58:17 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 11:26:34 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 12:06:08 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	init_mlx_window(t_fdf *fdf)
 	return (MLX_INITIALIZED);
 }
 
-void	set_point3d(t_3dcoord *point3d, int x, int y, int z)
+void	set_point(t_point *point3d, int x, int y, int z)
 {
 	point3d->x = x;
 	point3d->y = y;
@@ -129,48 +129,42 @@ void	draw_map(t_fdf	*fdf)
 {
 	t_numlist	*line;
 	t_numlist	*col;
-	int			idx;
-	int			idy;
-	t_3dcoord	point3d;
+	int			dx;
+	int			dy;
 	t_point		origin;
 	t_point		final;
 	int			delta;
 
 	line = fdf->map->point;
 	col = fdf->map->point;
-	idy = 0;
 	delta = fdf->map->delta;
+	dy = 0;
 	while (col)
 	{
-		idx = 0;
+		dx = 0;
 		line = col;
-		set_point3d(&point3d, idx, idy, line->value);
-		iso_proj(point3d, &origin, fdf->map->center);
+		set_point(&origin, dx, dy, line->value);
+		iso_proj(&origin, fdf->map->center);
 		while (line)
 		{
 			if (line->down)
 			{
-				set_point3d(&point3d, idx, idy + delta, line->down->value);
-				iso_proj(point3d, &final, fdf->map->center);
-				origin.z =  line->value;
-				final.z = line->down->value;
+				set_point(&final, dx, dy + delta, line->down->value);
+				iso_proj(&final, fdf->map->center);
 				bresen_draw(origin, final, fdf->img);
 			}
 			if (line->right)
 			{
-				set_point3d(&point3d, idx + delta, idy, line->right->value);
-				iso_proj(point3d, &final, fdf->map->center);
-				origin.z =  line->value;
-				final.z = line->right->value;
+				set_point(&final, dx + delta, dy, line->right->value);
+				iso_proj(&final, fdf->map->center);
 				bresen_draw(origin, final, fdf->img);
 			}
-			idx += delta;
-			origin.x = final.x;
-			origin.y = final.y;
+			dx += delta;
+			set_point(&origin, final.x, final.y, final.z);
 			line = line->right;
 		}
 		col = col->down;
-		idy += delta;
+		dy += delta;
 	}
 }
 
