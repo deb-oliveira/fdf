@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 14:58:17 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 10:56:59 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 11:26:34 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,4 +246,7 @@ int	main(int argc, char **argv)
 	mlx_destroy_display(fdf->mlx_ptr);
 	clear_map(&(fdf->map->point));
 	free(fdf->mlx_ptr);
+	free(fdf->img);
+	free(fdf->map);
+	free(fdf);
 }
