@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 14:58:17 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 16:36:11 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 16:49:02 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ int	init_fdf(int argc, char **argv, t_fdf **fdf)
 	ft_readmap(file, (*fdf)->map);
 	(*fdf)->map->center = get_center((*fdf)->mlx_ptr);
 	draw_map(*fdf);
+	mlx_put_image_to_window((*fdf)->mlx_ptr, (*fdf)->win_ptr, \
+		(*fdf)->img->mlx_img, 0, 0);
+	draw_menu(*fdf);
 	return (FDF_INITIALIZED);
 }
 
@@ -73,8 +76,6 @@ int	main(int argc, char **argv)
 
 	if (init_fdf(argc, argv, &fdf) != FDF_INITIALIZED)
 		return (FDF_ERROR);
-	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
-		fdf->img->mlx_img, 0, 0);
 	mlx_loop_hook(fdf->mlx_ptr, &handle_no_event, fdf);
 	mlx_key_hook(fdf->win_ptr, &handle_input, fdf);
 	mlx_hook(fdf->win_ptr, KeyPress, KeyPressMask, \

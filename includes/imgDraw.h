@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 21:28:15 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 16:26:02 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 17:01:26 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,5 @@ void	img_pix_put(t_fdf *fdf, int x, int y, int color);
 
 void	clear_image(t_fdf *fdf);
 
+int		draw_menu(t_fdf	*fdf);
 #endif

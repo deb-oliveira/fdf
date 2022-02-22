@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:37:20 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 16:23:52 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 17:02:32 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	img_pix_put(t_fdf *fdf, int x, int y, int color)
 	if (!(x > 0 && y > 0 && x < fdf->win_width && y < fdf->win_height))
 		return ;
 	pixel = fdf->img->addr
-			+ (y * fdf->img->line_len + x * (fdf->img->bpp / 8));
+		+ (y * fdf->img->line_len + x * (fdf->img->bpp / 8));
 	*(int *)pixel = color;
 }
 
@@ -39,4 +39,24 @@ void	clear_image(t_fdf *fdf)
 			img_pix_put(fdf, j++, i, 0x000000);
 		++i;
 	}
+}
+
+int	draw_menu(t_fdf	*fdf)
+{
+	int		y;
+	void	*mlx;
+	void	*win;
+
+	y = 0;
+	mlx = fdf->mlx_ptr;
+	win = fdf->win_ptr;
+	mlx_string_put(mlx, win, 50, y += 50, 0xffffff, "ISOMETRIC PROJECTION");
+	mlx_string_put(mlx, win, 50, y += 35, 0xffffff,
+		"Press 'ESC' or click the 'X' at the upper \
+right side to close the windows.");
+	mlx_string_put(mlx, win, 50, y += 20, 0xffffff,
+		"Press the arrow keys to move the map.");
+	mlx_string_put(mlx, win, 50, y += 20, 0xffffff,
+		"Use the mouse to Zoom In or Zoom Out.");
+	return (0);
 }
