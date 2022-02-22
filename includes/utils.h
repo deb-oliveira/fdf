@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:57:42 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 15:06:33 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 15:16:46 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void	get_screen_size(void *mlx_ptr, int *window_width, int *window_height);
 
 void	iso_proj(t_point *point, t_point center);
 
-int     ft_abs(int x);
+int		ft_abs(int x);
 
 #endif
