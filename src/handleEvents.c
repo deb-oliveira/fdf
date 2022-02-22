@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 21:27:52 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 12:54:02 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 13:32:15 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,59 +27,27 @@ int	handle_input(int keysym, t_fdf *fdf)
 int	handle_keypress(int keysym, t_fdf *fdf)
 {
 	if (keysym == XK_Escape)
+	{
 		mlx_destroy_window(fdf->mlx_ptr, fdf->win_ptr);
+		return (0);
+	}
 	else if (keysym == XK_KP_Add)
-	{
-		clear_image(fdf);
 		fdf->map->delta += 1;
-		draw_map(fdf);
-		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
-			fdf->img->mlx_img, 0, 0);
-	}
-	else if (keysym == XK_KP_Subtract)
-	{
-		clear_image(fdf);
-		if (fdf->map->delta > 0)
-			fdf->map->delta -= 1;
-		draw_map(fdf);
-		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
-			fdf->img->mlx_img, 0, 0);
-	}
+	else if (keysym == XK_KP_Subtract && fdf->map->delta > 0)
+		fdf->map->delta -= 1;
 	else if (keysym == XK_Right)
-	{
-		clear_image(fdf);
 		fdf->map->center.x += 5;
-		draw_map(fdf);
-		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
-			fdf->img->mlx_img, 0, 0);
-	}
 	else if (keysym == XK_Left)
-	{
-		clear_image(fdf);
 		fdf->map->center.x -= 5;
-		draw_map(fdf);
-		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
-			fdf->img->mlx_img, 0, 0);
-	}
 	else if (keysym == XK_Up)
-	{
-		clear_image(fdf);
 		fdf->map->center.y -= 5;
-		draw_map(fdf);
-		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
-			fdf->img->mlx_img, 0, 0);
-	}
 	else if (keysym == XK_Down)
-	{
-		clear_image(fdf);
 		fdf->map->center.y += 5;
-		draw_map(fdf);
-		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
+	clear_image(fdf);
+	draw_map(fdf);
+	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
 			fdf->img->mlx_img, 0, 0);
-	}
-	else
-		printf("%d\n", keysym);
-	return (0);
+	return (1);
 }
 
 //else if (keysym ==  XK_equal)
