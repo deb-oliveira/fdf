@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 14:58:28 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 14:45:45 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 16:36:36 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 # define FDF_H
 
 # define MLX_ERROR -1
-# define NO_ERROR 1
 # define FDF_INITIALIZED 1
 # define FDF_ERROR -1
 # define INPUT_ERROR -1
+# define INPUT_OK 1
 # define MLX_INITIALIZED 1
 # define WINDOW_WIDTH 1300
 # define WINDOW_HEIGHT 680
