@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:57:42 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 13:00:38 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 13:46:19 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@ void	set_point(t_point *point3d, int x, int y, int z);
 t_point	get_center(void *mlx_ptr);
 
 void	get_screen_size(void *mlx_ptr, int *window_width, int *window_height);
+
+void	iso_proj(t_point *point, t_point center);
 
 #endif

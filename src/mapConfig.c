@@ -6,30 +6,14 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:26:53 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 13:08:52 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 13:46:37 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mapConfig.h"
 #include "../includes/fdf.h"
 
-void	iso_proj(t_point *point, t_point center)
-{
-	int	x;
-	int	y;
-	int	z;
-
-	x = point->x;
-	y = point->y;
-	z = point->z;
-	point->x = center.x + round(sqrt(2.0) / 2.0
-			* (x - y));
-	point->y = center.y * 0.2 - round(sqrt(2.0 / 3.0)
-			* z - sqrt(1.0 / 6.0)
-			* (x + y));
-}	
-
-static void	ft_doublefree(char **tofree)
+static void	clear_premap(char **tofree)
 {
 	int	idx;
 
@@ -44,28 +28,11 @@ static void	ft_doublefree(char **tofree)
 	free(tofree);
 }
 
-void	ft_setmap(char **premap, t_map *map)
+static void	get_premap_values(t_numlist	*ptr_actual, t_numlist *ptr_previous
+	, char **premap, t_map *map)
 {
-	int			idx;
-	t_numlist	*ptr_actual;
-	t_numlist	*ptr_previous;
+	int	idx;
 
-	if (!premap)
-		return ;
-	if (!map->point)
-	{
-		map->point = ft_calloc(1, sizeof(t_numlist));
-		ptr_previous = NULL;
-		ptr_actual = map->point;
-	}
-	else
-	{
-		ptr_previous = map->point;
-		while (ptr_previous->down)
-			ptr_previous = ptr_previous->down;
-		ptr_previous->down = ft_calloc(1, sizeof(t_numlist));
-		ptr_actual = ptr_previous->down;
-	}
 	idx = 0;
 	while (premap[idx])
 	{
@@ -86,20 +53,42 @@ void	ft_setmap(char **premap, t_map *map)
 		map->width = idx;
 }
 
+void	ft_setmap(char **premap, t_map *map)
+{
+	t_numlist	*ptr_actual;
+	t_numlist	*ptr_previous;
+
+	if (!premap)
+		return ;
+	if (!map->point)
+	{
+		map->point = ft_calloc(1, sizeof(t_numlist));
+		ptr_previous = NULL;
+		ptr_actual = map->point;
+	}
+	else
+	{
+		ptr_previous = map->point;
+		while (ptr_previous->down)
+			ptr_previous = ptr_previous->down;
+		ptr_previous->down = ft_calloc(1, sizeof(t_numlist));
+		ptr_actual = ptr_previous->down;
+	}
+	get_premap_values(ptr_actual, ptr_previous, premap, map);
+}
+
 void	ft_readmap(char *file, t_map *map)
 {
 	int			gnl;
 	char		*line;
 	char		**premap;
 	int			fd;
-	int			i;
 
 	fd = open(file, O_RDONLY);
 	gnl = 1;
 	map->point = NULL;
 	map->height = 0;
 	map->width = 0;
-	i = 1;
 	while (gnl > 0)
 	{
 		gnl = get_next_line(fd, &line);
@@ -108,10 +97,9 @@ void	ft_readmap(char *file, t_map *map)
 		{
 			map->height += 1;
 			ft_setmap(premap, map);
-			i++;
 		}
 		free(line);
-		ft_doublefree(premap);
+		clear_premap(premap);
 	}
 	close(fd);
 }

@@ -6,11 +6,27 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:52:47 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 13:07:09 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 13:46:07 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+void	iso_proj(t_point *point, t_point center)
+{
+	int	x;
+	int	y;
+	int	z;
+
+	x = point->x;
+	y = point->y;
+	z = point->z;
+	point->x = center.x + round(sqrt(2.0) / 2.0
+			* (x - y));
+	point->y = center.y * 0.2 - round(sqrt(2.0 / 3.0)
+			* z - sqrt(1.0 / 6.0)
+			* (x + y));
+}	
 
 void	get_screen_size(void *mlx_ptr, int *window_width, int *window_height)
 {
