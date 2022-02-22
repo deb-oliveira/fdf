@@ -6,90 +6,11 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 14:58:17 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 12:06:08 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 13:06:39 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-void	ft_buildmtx(t_mtx *A, int line, int col)
-{
-	int	i;
-
-	A->line = line;
-	A->col = col;
-	A->mtx = malloc(line * sizeof(int *));
-	i = 0;
-	while (i < line)
-	{
-		(A->mtx)[i] = (int *)malloc(col * sizeof(int));
-		i++;
-	}
-}
-
-void	free_matrix(t_mtx *A)
-{
-	int	i;
-
-	i = 0;
-	while (i < A->line)
-	{
-		free(A->mtx[i]);
-		i++;
-	}
-	free(A->mtx);
-}
-
-void	argc_error_message(int argc)
-{
-	if (argc == 1)
-	{
-		ft_putendl_fd("Oh, c'mon dear. I can handle more than that.", 2);
-		ft_putendl_fd("Please, insert two arguments so we can procede.", 2);
-	}
-	else if (argc > 2)
-	{
-		ft_putendl_fd(
-			"Hmm... That's too much. I guess we have try with a little less.",
-			2);
-		ft_putendl_fd(
-			"Please, insert only two arguments so we can procede.", 2);
-	}
-}
-
-void	type_error_message(void)
-{
-	ft_putendl_fd("Ops, we don't deal with this type of type.", 2);
-	ft_putendl_fd("Please choose an '.fdf' file.", 2);
-}
-
-int	check_input_error(int argc, char **argv)
-{
-	if (argc != 2)
-	{
-		argc_error_message(argc);
-		return (INPUT_ERROR);
-	}
-	if (!ft_strnstr(argv[1], "fdf", ft_strlen(argv[1])))
-	{
-		type_error_message();
-		return (INPUT_ERROR);
-	}
-	return (NO_ERROR);
-}
-
-static void	get_screen_size(void *mlx_ptr
-	, int *window_width, int *window_height)
-{
-	mlx_get_screen_size(mlx_ptr, window_width, window_height);
-	*window_height -= 100;
-	*window_width -= 100;
-	if (*window_width > WINDOW_WIDTH || *window_height > WINDOW_HEIGHT)
-	{
-		*window_width = WINDOW_WIDTH;
-		*window_height = WINDOW_HEIGHT;
-	}
-}
 
 int	init_mlx_window(t_fdf *fdf)
 {
@@ -116,92 +37,6 @@ int	init_mlx_window(t_fdf *fdf)
 	fdf->win_height = window_height;
 	fdf->win_width = window_width;
 	return (MLX_INITIALIZED);
-}
-
-void	set_point(t_point *point3d, int x, int y, int z)
-{
-	point3d->x = x;
-	point3d->y = y;
-	point3d->z = z;
-}
-
-void	draw_map(t_fdf	*fdf)
-{
-	t_numlist	*line;
-	t_numlist	*col;
-	int			dx;
-	int			dy;
-	t_point		origin;
-	t_point		final;
-	int			delta;
-
-	line = fdf->map->point;
-	col = fdf->map->point;
-	delta = fdf->map->delta;
-	dy = 0;
-	while (col)
-	{
-		dx = 0;
-		line = col;
-		set_point(&origin, dx, dy, line->value);
-		iso_proj(&origin, fdf->map->center);
-		while (line)
-		{
-			if (line->down)
-			{
-				set_point(&final, dx, dy + delta, line->down->value);
-				iso_proj(&final, fdf->map->center);
-				bresen_draw(origin, final, fdf->img);
-			}
-			if (line->right)
-			{
-				set_point(&final, dx + delta, dy, line->right->value);
-				iso_proj(&final, fdf->map->center);
-				bresen_draw(origin, final, fdf->img);
-			}
-			dx += delta;
-			set_point(&origin, final.x, final.y, final.z);
-			line = line->right;
-		}
-		col = col->down;
-		dy += delta;
-	}
-}
-
-static t_point	get_center(void *mlx_ptr)
-{
-	int		window_width;
-	int		window_height;
-	t_point	center;
-
-	get_screen_size(mlx_ptr, &window_width, &window_height);
-	center.x = window_width / 2;
-	center.y = window_height / 2;
-	return (center);
-}
-
-int	mouse_event(int button, int x, int y, t_fdf *fdf)
-{
-	if (button == 5)
-	{
-		clear_image(fdf);
-		fdf->map->delta += 1;
-		draw_map(fdf);
-		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
-			fdf->img->mlx_img, 0, 0);
-	}
-	else if (button == 4)
-	{
-		clear_image(fdf);
-		if (fdf->map->delta > 0)
-			fdf->map->delta -= 1;
-		draw_map(fdf);
-		mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
-			fdf->img->mlx_img, 0, 0);
-	}
-	printf("%d\n", button);
-	printf("%d, %d\n", x, y);
-	return (1);
 }
 
 int	expose_handle(void)

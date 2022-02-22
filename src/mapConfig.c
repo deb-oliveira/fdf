@@ -6,42 +6,18 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:26:53 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 11:49:47 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 13:08:52 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mapConfig.h"
 #include "../includes/fdf.h"
 
-static void	get_screen_size(void *mlx_ptr, int *windowWidth, int *windowHeight)
-{
-	mlx_get_screen_size(mlx_ptr, windowWidth, windowHeight);
-	*windowHeight -= 100;
-	*windowWidth -= 100;
-	if (*windowWidth > WINDOW_WIDTH || *windowHeight > WINDOW_HEIGHT)
-	{
-		*windowWidth = WINDOW_WIDTH;
-		*windowHeight = WINDOW_HEIGHT;
-	}
-}
-
-t_point	get_center(void *mlx_ptr)
-{
-	int		window_width;
-	int		window_height;
-	t_point	center_coord;
-
-	get_screen_size(mlx_ptr, &window_width, &window_height);
-	center_coord.x = window_width / 2;
-	center_coord.y = window_height / 2;
-	return (center_coord);
-}
-
 void	iso_proj(t_point *point, t_point center)
 {
-	int x;
-	int y;
-	int z;
+	int	x;
+	int	y;
+	int	z;
 
 	x = point->x;
 	y = point->y;

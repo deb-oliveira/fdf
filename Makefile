@@ -6,18 +6,21 @@
 #    By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/26 14:58:34 by dde-oliv          #+#    #+#              #
-#    Updated: 2022/02/22 10:51:29 by dde-oliv         ###   ########.fr        #
+#    Updated: 2022/02/22 13:05:51 by dde-oliv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			=	clang
 FILES_PATH	=	src
 FILES 		= 	$(FILES_PATH)/handleEvents.c 	\
+				$(FILES_PATH)/handleErrors.c 	\
 				$(FILES_PATH)/main.c \
 				$(FILES_PATH)/imgProperties.c \
 				$(FILES_PATH)/mapConfig.c \
 				$(FILES_PATH)/imgDraw.c \
-				$(FILES_PATH)/bresen_draw.c
+				$(FILES_PATH)/bresen_draw.c \
+				$(FILES_PATH)/draw_map.c \
+				$(FILES_PATH)/utils.c
 OBJS_PATH	=	objs
 OBJS 		=	$(addprefix $(OBJS_PATH)/,$(notdir $(FILES:.c=.o)))
 FLAGS 		= 	-Wall -Wextra -Werror
