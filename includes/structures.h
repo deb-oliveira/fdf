@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:21:54 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 10:48:41 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 11:27:33 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,5 @@ typedef struct s_fdf
 	t_img	*img;
 	t_map	*map;
 }	t_fdf;
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:09:10 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 11:24:00 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 11:28:02 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	bresen_draw_xcase(t_point start, t_point end, t_img *img)
 	float	slope;
 	float	pitch;
 	t_point	current;
-	
+
 	dx = end.x - start.x;
 	dy = end.y - start.y;
 	slope = dy / dx;
@@ -37,7 +37,7 @@ static void	bresen_draw_xcase(t_point start, t_point end, t_img *img)
 		current.y = round(slope * current.x + pitch);
 		current.color = get_color(current, start, end);
 		img_pix_put(img, current.x, current.y, current.color);
-		current.x += -(dx < 0) + (dx >= 0);;
+		current.x += -(dx < 0) + (dx >= 0);
 	}
 }
 
