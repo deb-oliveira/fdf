@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:51:01 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 13:08:35 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 16:25:27 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	draw_edges(t_numlist *line, t_point start, int delta, t_fdf *fdf)
 		{
 			set_point(&end, x, y + delta, line->down->value);
 			iso_proj(&end, fdf->map->center);
-			bresen_draw(start, end, fdf->img);
+			bresen_draw(start, end, fdf);
 		}
 		if (line->right)
 		{
 			set_point(&end, x += delta, y, line->right->value);
 			iso_proj(&end, fdf->map->center);
-			bresen_draw(start, end, fdf->img);
+			bresen_draw(start, end, fdf);
 		}
 		set_point(&start, end.x, end.y, end.z);
 		line = line->right;

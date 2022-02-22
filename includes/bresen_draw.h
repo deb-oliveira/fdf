@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:09:49 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 09:03:47 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 16:25:34 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@
 
 # define BLACK_COLOR 0x000000
 
-void	bresen_draw(t_point start, t_point end, t_img *img);
+void	bresen_draw(t_point start, t_point end, t_fdf *img);
 
 #endif

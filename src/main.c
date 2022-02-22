@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 14:58:17 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 15:08:50 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 16:33:52 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	init_mlx_window(t_fdf *fdf)
 		return (MLX_ERROR);
 	get_screen_size(fdf->mlx_ptr, &window_width, &window_height);
 	fdf->win_ptr = mlx_new_window(fdf->mlx_ptr,
-			WINDOW_WIDTH, WINDOW_HEIGHT, "FDF");
+			window_width, window_height, "FDF");
 	if (!fdf->win_ptr)
 	{
 		mlx_destroy_display(fdf->mlx_ptr);
@@ -30,7 +30,7 @@ int	init_mlx_window(t_fdf *fdf)
 		return (MLX_ERROR);
 	}
 	fdf->img->mlx_img = mlx_new_image(fdf->mlx_ptr,
-			WINDOW_WIDTH, WINDOW_HEIGHT);
+			window_width, window_height);
 	fdf->img->addr = mlx_get_data_addr(fdf->img->mlx_img,
 			&fdf->img->bpp,
 			&fdf->img->line_len, &fdf->img->endian);
