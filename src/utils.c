@@ -6,11 +6,18 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:52:47 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 13:46:07 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 15:05:37 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+int	ft_abs(int x)
+{
+	if (x < 0)
+		return (-x);
+	return (x);
+}
 
 void	iso_proj(t_point *point, t_point center)
 {

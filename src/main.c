@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 14:58:17 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 14:45:54 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 15:08:50 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,6 @@ int	init_mlx_window(t_fdf *fdf)
 	fdf->win_height = window_height;
 	fdf->win_width = window_width;
 	return (MLX_INITIALIZED);
-}
-
-int	expose_handle(void)
-{
-	return (0);
 }
 
 int	init_fdf(int argc, char **argv, t_fdf **fdf)
@@ -81,7 +76,6 @@ int	main(int argc, char **argv)
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
 		fdf->img->mlx_img, 0, 0);
 	mlx_loop_hook(fdf->mlx_ptr, &handle_no_event, fdf);
-	mlx_expose_hook(fdf->mlx_ptr, &expose_handle, fdf);
 	mlx_key_hook(fdf->win_ptr, &handle_input, fdf);
 	mlx_hook(fdf->win_ptr, KeyPress, KeyPressMask, \
 		&handle_keypress, fdf);

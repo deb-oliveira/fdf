@@ -6,18 +6,11 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:09:10 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 13:08:20 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 15:05:27 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/bresen_draw.h"
-
-static int	ft_abs(int x)
-{
-	if (x < 0)
-		return (-x);
-	return (x);
-}
 
 static void	bresen_draw_xcase(t_point start, t_point end, t_img *img)
 {

@@ -6,18 +6,12 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:05:36 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/21 11:34:24 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/22 15:08:08 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/imgProperties.h"
-
-static int	ft_abs(int x)
-{
-	if (x < 0)
-		return (-x);
-	return (x);
-}
+#include "../includes/utils.h"
 
 static double	percent(int start, int end, int current)
 {
