@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 21:27:52 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/23 10:36:51 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/23 13:16:07 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@ int	handle_no_event(void)
 	return (0);
 }
 
-int	handle_input(int keysym, t_fdf *fdf)
+int	expose_hook(t_fdf *fdf)
 {
-	if (keysym == XK_Escape)
-		mlx_destroy_window(fdf->mlx_ptr, fdf->win_ptr);
-	return (0);
+	clear_image(fdf);
+	draw_map(fdf);
+	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
+			fdf->img->mlx_img, 0, 0);
+	draw_menu(fdf);
+	return(0);
 }
 
 int	handle_keypress(int keysym, t_fdf *fdf)
@@ -48,7 +51,7 @@ int	handle_keypress(int keysym, t_fdf *fdf)
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
 			fdf->img->mlx_img, 0, 0);
 	draw_menu(fdf);
-	return (1);
+	return (0);
 }
 
 int	mouse_event(int button, int x, int y, t_fdf *fdf)
@@ -63,8 +66,8 @@ int	mouse_event(int button, int x, int y, t_fdf *fdf)
 			fdf->img->mlx_img, 0, 0);
 	draw_menu(fdf);
 	if (x || y)
-		return (1);
-	return (1);
+		return (0);
+	return (0);
 }
 
 int	close_window(t_fdf *fdf)

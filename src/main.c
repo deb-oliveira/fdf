@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 14:58:17 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/23 11:23:44 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/23 13:16:28 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ int	main(int argc, char **argv)
 	if (init_fdf(argc, argv, &fdf) != FDF_INITIALIZED)
 		return (FDF_ERROR);
 	mlx_loop_hook(fdf->mlx_ptr, &handle_no_event, fdf);
-	mlx_key_hook(fdf->win_ptr, &handle_input, fdf);
 	mlx_hook(fdf->win_ptr, KeyPress, KeyPressMask, \
 		&handle_keypress, fdf);
 	mlx_hook(fdf->win_ptr, ClientMessage, None, &close_window, fdf);
 	mlx_mouse_hook(fdf->win_ptr, &mouse_event, fdf);
+	mlx_expose_hook(fdf->win_ptr, &expose_hook, fdf);
 	mlx_loop(fdf->mlx_ptr);
 	mlx_destroy_image(fdf->mlx_ptr, fdf->img->mlx_img);
 	mlx_destroy_display(fdf->mlx_ptr);

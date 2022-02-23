@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 21:28:15 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 12:55:25 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/23 13:15:01 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 int	handle_no_event(void);
 
-int	handle_input(int keysym, t_fdf *fdf);
+int	expose_hook(t_fdf *fdf);
 
 int	handle_keypress(int keysym, t_fdf *fdf);
 
