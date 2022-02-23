@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 14:58:17 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 16:49:02 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/23 11:23:44 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,19 @@ int	init_fdf(int argc, char **argv, t_fdf **fdf)
 {
 	char	*file;
 
+	if (check_input_error(argc, argv) != INPUT_OK)
+		return (INPUT_ERROR);
 	(*fdf) = malloc(sizeof(t_fdf));
 	(*fdf)->map = malloc(sizeof(t_map));
 	(*fdf)->img = malloc(sizeof(t_img));
 	(*fdf)->map->delta = 20;
-	if (check_input_error(argc, argv) != INPUT_OK)
-		return (INPUT_ERROR);
 	if (init_mlx_window(*fdf) != MLX_INITIALIZED)
+	{
+		free(*fdf);
+		free((*fdf)->map);
+		free((*fdf)->img);
 		return (MLX_ERROR);
+	}
 	file = argv[1];
 	ft_readmap(file, (*fdf)->map);
 	(*fdf)->map->center = get_center((*fdf)->mlx_ptr);
