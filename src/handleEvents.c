@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 21:27:52 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/23 13:16:07 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/23 13:21:48 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	expose_hook(t_fdf *fdf)
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
 			fdf->img->mlx_img, 0, 0);
 	draw_menu(fdf);
-	return(0);
+	return (0);
 }
 
 int	handle_keypress(int keysym, t_fdf *fdf)
