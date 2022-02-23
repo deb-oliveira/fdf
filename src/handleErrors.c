@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:03:01 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 13:07:32 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/23 10:37:49 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ int	check_input_error(int argc, char **argv)
 		type_error_message();
 		return (INPUT_ERROR);
 	}
-	return (NO_ERROR);
+	return (INPUT_OK);
 }

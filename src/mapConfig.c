@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:26:53 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 13:46:37 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/23 10:45:03 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ static void	get_premap_values(t_numlist	*ptr_actual, t_numlist *ptr_previous
 	while (premap[idx])
 	{
 		ptr_actual->value = ft_atoi(premap[idx]);
+		if (map->max < ptr_actual->value)
+			map->max = ptr_actual->value;
+		if (map->min > ptr_actual->value)
+			map->min = ptr_actual->value;
 		if (premap[idx + 1])
 		{
 			ptr_actual->right = ft_calloc(1, sizeof(t_numlist));
@@ -89,6 +93,8 @@ void	ft_readmap(char *file, t_map *map)
 	map->point = NULL;
 	map->height = 0;
 	map->width = 0;
+	map->max = 0;
+	map->min = 0;
 	while (gnl > 0)
 	{
 		gnl = get_next_line(fd, &line);

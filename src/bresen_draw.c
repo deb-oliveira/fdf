@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:09:10 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 16:25:07 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/23 10:44:33 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	bresen_draw(t_point start, t_point end, t_fdf *fdf)
 	float	dx;
 	float	dy;
 
-	start.color = get_default_color(start.z, 0, 10);
-	end.color = get_default_color(end.z, 0, 10);
+	start.color = get_default_color(start.z, fdf->map->min, fdf->map->max);
+	end.color = get_default_color(end.z, fdf->map->min, fdf->map->max);
 	dx = end.x - start.x;
 	dy = end.y - start.y;
 	if (ft_abs(dy) < ft_abs(dx))

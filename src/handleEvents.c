@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 21:27:52 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/22 16:54:33 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/23 10:36:51 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,6 @@ int	handle_keypress(int keysym, t_fdf *fdf)
 	return (1);
 }
 
-//else if (keysym ==  XK_equal)
-//clear_image(mlxData);
-//mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-
 int	mouse_event(int button, int x, int y, t_fdf *fdf)
 {
 	if (button == 5)
@@ -66,8 +62,8 @@ int	mouse_event(int button, int x, int y, t_fdf *fdf)
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, \
 			fdf->img->mlx_img, 0, 0);
 	draw_menu(fdf);
-	printf("%d\n", button);
-	printf("%d, %d\n", x, y);
+	if (x || y)
+		return (1);
 	return (1);
 }
 
