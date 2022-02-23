@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 14:09:10 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/23 10:44:33 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/23 12:29:46 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	bresen_draw_ycase(t_point start, t_point end, t_fdf *fdf)
 
 	dx = end.x - start.x;
 	dy = end.y - start.y;
-	slope = dy / dx;
+	slope = dx / dy;
 	pitch = start.x - slope * start.y;
 	current.y = start.y;
 	while (current.y != end.y)
