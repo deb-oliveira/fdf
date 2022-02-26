@@ -6,7 +6,7 @@
 /*   By: dde-oliv <dde-oliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 13:03:01 by dde-oliv          #+#    #+#             */
-/*   Updated: 2022/02/23 10:37:49 by dde-oliv         ###   ########.fr       */
+/*   Updated: 2022/02/26 11:01:04 by dde-oliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	argc_error_message(int argc)
 
 void	type_error_message(void)
 {
-	ft_putendl_fd("Ops, we don't deal with this type of type.", 2);
+	ft_putendl_fd("Ops, we don't deal with this type of file.", 2);
 	ft_putendl_fd("Please choose an '.fdf' file.", 2);
 }
 
